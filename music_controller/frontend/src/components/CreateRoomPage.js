@@ -5,10 +5,11 @@ import Typography from "@material-ui/core";
 import TextField from "@material-ui/core";
 import FormHelperText from "@material-ui/core";
 import FormControl from "@material-ui/core";
-import { Link } from "react-router-dom";
 import Radio from "@material-ui/core";
 import RadioGroup from "@material-ui/core";
 import FormControlLabel from "@material-ui/core";
+import { Link } from "react-router-dom";
+
 
 export default class CreateRoomPage extends Component {
   defaultVotes = 2;
@@ -48,8 +49,12 @@ export default class CreateRoomPage extends Component {
     };
     fetch("/api/create-room", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data));
-  }
+      .then((data) => this.props.history.push('/room/' +data.code))
+      .catch((error) => {
+          console.error("Error creating room:", error); // Log any errors to the console
+      });
+}
+
 
   render() {
     return (
